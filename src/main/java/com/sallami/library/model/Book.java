@@ -7,14 +7,14 @@ import java.util.Objects;
 
 public class Book {
 
-    private String title;
+    private Title title;
     private final String isbn;
     private final LocalDate publicationDate;
     private final List<Author> authors;
     private Category category;
 
-    public Book(String title, String isbn, LocalDate publicationDate, List<Author> authors, Category category) {
-        validateBook(title, isbn, publicationDate, authors, category);
+    public Book(Title title, String isbn, LocalDate publicationDate, List<Author> authors, Category category) {
+        validateBook( isbn, publicationDate, authors, category);
         this.title = title;
         this.isbn = isbn;
         this.publicationDate = publicationDate;
@@ -22,7 +22,7 @@ public class Book {
         this.category = category;
     }
 
-    public String getTitle() {
+    public Title getTitle() {
         return title;
     }
 
@@ -42,8 +42,7 @@ public class Book {
         return category;
     }
 
-    public void rename(String title) {
-        validateTitle(title);
+    public void rename(Title title) {
         this.title = title;
     }
 
@@ -91,19 +90,15 @@ public class Book {
                 '}';
     }
 
-    private void validateBook(String title, String isbn, LocalDate publicationDate, List<Author> authors, Category category) {
-        validateTitle(title);
+    private void validateBook(String isbn, LocalDate publicationDate, List<Author> authors, Category category) {
+
         validateIsbn(isbn);
         validatePublicationDate(publicationDate);
         validateAuthors(authors);
         validateCategory(category);
     }
 
-    private void validateTitle(String title) {
-        if (title == null || title.isBlank()) {
-            throw new IllegalArgumentException("Book title cannot be null or black");
-        }
-    }
+
 
     private void validateIsbn(String isbn) {
         if (isbn == null || isbn.isBlank()) {
